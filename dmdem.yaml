@@ -19,3 +19,15 @@ spec:
         image: douguohai/dm8-dem:x86
         ports:
         - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dmdem
+spec:
+  selector:
+    app: dmdem
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
