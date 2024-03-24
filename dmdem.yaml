@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dmdem-deployment
+  labels:
+    app: dmdem
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dmdem
+  template:
+    metadata:
+      labels:
+        app: dmdem
+    spec:
+      containers:
+      - name: dmdem
+        image: douguohai/dm8-dem:x86
+        ports:
+        - containerPort: 80
