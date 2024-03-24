@@ -19,6 +19,14 @@ spec:
         image: douguohai/dm8-dem:x86
         ports:
         - containerPort: 80
+        volumeMounts:
+        - mountPath: /usr/local/tomcat/webapps/dem/WEB-INF/db.xml
+          name: dmdem-conf
+          subPath: db.xml
+      volumes:
+      - name: dmdem-conf
+        configMap:
+          name: dmdem-conf
 ---
 apiVersion: v1
 kind: Service
@@ -31,3 +39,25 @@ spec:
     - protocol: TCP
       port: 8080
       targetPort: 8080
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dmdem-conf
+data:
+  db.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <ConnectPool>
+            <Server>192.168.5.111</Server>
+            <Port>5236</Port>
+            <User>SYSDBA</User>
+            <Password>HC!r0cks1</Password>
+            <InitPoolSize>5</InitPoolSize>
+            <CorePoolSize>10</CorePoolSize>
+            <MaxPoolSize>500</MaxPoolSize>
+            <KeepAliveTime>60</KeepAliveTime>
+            <DbDriver></DbDriver>
+            <DbTestStatement>select 1</DbTestStatement>
+            <SSLDir>../sslDir/client_ssl/SYSDBA</SSLDir>
+            <SSLPassword></SSLPassword>
+    </ConnectPool>
