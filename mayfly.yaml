@@ -31,7 +31,7 @@ spec:
   selector:
     app: mayfly
   ports:
-    - protocol: TCP
-      port: 18888
-      targetPort: 18888
-      type: NodePort
+  - protocol: TCP
+    port: 18888
+    targetPort: 18888
+  type: NodePort
