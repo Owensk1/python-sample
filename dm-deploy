@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dm8-deployment
+  labels:
+    app: dm8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dm8
+  template:
+    metadata:
+      labels:
+        app: dm8
+    spec:
+      containers:
+      - name: dm8
+        image: emhui/dm8_single:dm8_20230808_rev197096_x86_rh6_64
+        ports:
+        - containerPort: 5236
+        env:
+        - name: LD_LIBRARY_PATH
+          value: "/opt/dmdbms/bin"
