@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mayfly-deployment
+  labels:
+    app: mayfly
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mayfly
+  template:
+    metadata:
+      labels:
+        app: mayfly
+    spec:
+      containers:
+      - name: mayfly
+        image: owenyang1996/mayfly-go:v2
+        ports:
+        - containerPort: 18888
+        env:
+        - name: MAYFLY_SQLITE_PATH
+          value: "/mayfly/mayfly-go.sqlite"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mayfly
+spec:
+  selector:
+    app: mayfly
+  ports:
+    - protocol: TCP
+      port: 18888
+      targetPort: 18888
+      type: NodePort
