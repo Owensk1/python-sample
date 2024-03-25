@@ -17,6 +17,7 @@ spec:
       containers:
       - name: mayfly
         image: owenyang1996/mayfly-go:v2
+        command: mayfly-go
         ports:
         - containerPort: 18888
         env:
